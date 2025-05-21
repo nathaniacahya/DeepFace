@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from deepface import DeepFace
 import os
 from flask_cors import CORS
@@ -27,5 +27,9 @@ def compare_faces():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

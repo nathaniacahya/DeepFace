@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Face Similarity Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .image-upload {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .image-container {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .preview {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      margin-top: 10px;
+      display: none;
+    }
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    #result {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      white-space: pre-wrap;
+    }
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Face Similarity Checker</h1>
+  <div class="container">
+    <div class="image-upload">
+      <div class="image-container">
+        <h3>First Image</h3>
+        <input type="file" id="img1" accept="image/*" onchange="previewImage(this, 'preview1')">
+        <img id="preview1" class="preview">
+      </div>
+      <div class="image-container">
+        <h3>Second Image</h3>
+        <input type="file" id="img2" accept="image/*" onchange="previewImage(this, 'preview2')">
+        <img id="preview2" class="preview">
+      </div>
+    </div>
+    <button onclick="upload()">Compare Faces</button>
+    <div class="loading" id="loading">Processing... This may take a moment.</div>
+    <h3>Result:</h3>
+    <div id="result">Results will appear here after comparison</div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
