@@ -20,11 +20,25 @@ def compare_faces():
     path2 = os.path.join(UPLOAD_FOLDER, 'img2.jpg')
     img1.save(path1)
     img2.save(path2)
-
+    
     try:
+        # Use DeepFace to verify the faces
         result = DeepFace.verify(path1, path2, enforce_detection=False)
-        return jsonify(result)
+        
+        # Log the result for debugging
+        print("DeepFace Result:", result)
+        
+        # Ensure keys in result are converted to strings for JSON
+        cleaned_result = {
+            'verified': bool(result.get('verified')),
+            'distance': float(result.get('distance', 0)),
+            'threshold': float(result.get('threshold', 0)),
+            'model': str(result.get('model', 'VGG-Face'))
+        }
+        
+        return jsonify(cleaned_result)
     except Exception as e:
+        print("Error in face comparison:", str(e))
         return jsonify({'error': str(e)}), 500
 
 @app.route('/')
